@@ -1,30 +1,125 @@
+:root {
+  --spacing: 20px;
+  --primary-color: #3498db;
+  --error-color: #dc3545;
+}
+
 .app-container {
-  padding: 20px;
+  padding: var(--spacing);
 }
 
 .nav-bar {
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing);
+}
+
+.nav-bar a {
+  margin-right: 10px;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.nav-bar a:hover {
+  text-decoration: underline;
+}
+
+.nav-bar button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  margin-left: 10px;
+}
+
+.nav-bar button:hover {
+  text-decoration: underline;
+  background-color: transparent;
 }
 
 .auth-form {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   margin-top: 100px;
+  flex-direction: column;
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
 }
 
 input, select {
-  padding: 5px;
-  font-size: 14px;
+  padding: 10px 12px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 button {
-  padding: 6px 10px;
+  padding: 10px 15px;
   cursor: pointer;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 h2 {
-  position: absolute;
-  top: 20px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.dashboard-container {
+  padding: var(--spacing);
+}
+
+.stats-card {
+  background: #f9f9f9;
+  padding: var(--spacing);
+  margin-bottom: var(--spacing);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats-card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+@media (max-width: 600px) {
+  .auth-form {
+    margin-top: 50px;
+    padding: 15px;
+  }
+  input, select, button {
+    width: 100%;
+  }
 }

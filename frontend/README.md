@@ -1,70 +1,152 @@
-# Getting Started with Create React App
+# React-Flask Authentication App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a full-stack application demonstrating user authentication (signup, login, logout, protected routes, dashboard) using React.js for the frontend and Flask with Flask-JWT-Extended for the backend.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Authentication**: Secure signup and login with hashed passwords.
+- **JWT (JSON Web Tokens)**: Stateless authentication and authorization.
+- **Protected Routes**: Restrict access based on authentication status.
+- **Role-Based Access Control (RBAC)**: Role-specific dashboard content.
+- **Client-Side Validation**: Basic email and password validation.
+- **Responsive Design**: Mobile-friendly layout using basic CSS.
+- **Password Reset (Backend)**: Endpoint for requesting password reset token (email integration needed for real app).
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend (React)
+- React 18+
+- React Router DOM v6
+- Axios
+- Basic CSS
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend (Flask)
+- Python 3.x
+- Flask
+- Flask-CORS
+- Flask-Bcrypt
+- Flask-JWT-Extended
+- Flask-SQLAlchemy
+- Flask-Migrate
+- SQLAlchemy
+- itsdangerous
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
+- Python 3.8+
+- Node.js & npm (or yarn)
 
-### `npm run build`
+### 1. Backend Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone <repository_url>
+cd react-flask-login/backend
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Create a virtual environment:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+python -m venv venv
+```
 
-### `npm run eject`
+Activate the virtual environment:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Windows**: `.env\Scriptsctivate`
+- **macOS/Linux**: `source venv/bin/activate`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Install dependencies:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+pip install -r requirements.txt
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+If `requirements.txt` is missing, install manually:
 
-## Learn More
+```bash
+pip install Flask Flask-CORS Flask-Bcrypt Flask-JWT-Extended Flask-SQLAlchemy Flask-Migrate SQLAlchemy itsdangerous
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Create a `.env` file:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+DATABASE_URL=sqlite:///users.db
+JWT_SECRET_KEY=your_jwt_secret_key_here
+SECRET_KEY=your_app_secret_key_here
+FLASK_ENV=development
+```
 
-### Code Splitting
+Initialize and migrate the database:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
+```
 
-### Analyzing the Bundle Size
+Seed the database (optional):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+python seed.py
+```
 
-### Making a Progressive Web App
+Run the backend server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+flask run
+```
 
-### Advanced Configuration
+### 2. Frontend Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+cd ../frontend
+npm install
+npm start
+```
 
-### Deployment
+- The frontend runs at: `http://localhost:3000`
+- The backend runs at: `http://localhost:5000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Usage
 
-### `npm run build` fails to minify
+- **Signup**: `http://localhost:3000/signup`
+- **Login**: `http://localhost:3000/`
+- **Admin Login**: admin@example.com / admin123 (if seeded)
+- **Student Login**: student@example.com / student123 (if seeded)
+- **Dashboard**: Redirects after login, role-specific content
+- **Protected Route**: Direct access to `/protected` redirects unauthenticated users
+- **Logout**: Clears session
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Project Structure
+
+```
+.
+├── backend/
+│   ├── venv/
+│   ├── migrations/
+│   ├── app.py
+│   ├── config.py
+│   ├── models.py
+│   ├── seed.py
+│   └── requirements.txt
+├── frontend/
+│   ├── node_modules/
+│   ├── public/
+│   ├── src/
+│   │   ├── App.js
+│   │   ├── App.css
+│   │   ├── Login.js
+│   │   ├── Signup.js
+│   │   ├── Dashboard.js
+│   │   └── Protected.js
+│   ├── package.json
+│   └── .env
+└── README.md
+```
+
+## Troubleshooting
+
+- **CORS Error**: Ensure `Flask-CORS` is configured in `app.py`
+- **Database Errors**: Run migrations after model changes
+- **JWT Issues**: Expired/invalid tokens auto-logout users
+- **Router Issues**: Wrap content in `<BrowserRouter>` in `App.js`
